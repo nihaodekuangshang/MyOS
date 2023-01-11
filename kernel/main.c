@@ -1,12 +1,15 @@
 #include "print.h"
 #include "init.h"
 #include "debug.h"
+#include "string.h"
 
-int main() 
+int main(void) 
 {
-   put_str("In KERNEL\n");
    init_all();
-   ASSERT(1 == 2);
+   ASSERT(strcmp("bbb","bbb"));
+   ASSERT(strcmp("bbb","bb"));
+
    while(1);
-   return 0;
+
+
 }

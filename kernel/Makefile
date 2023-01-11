@@ -1,7 +1,8 @@
 #编译用到的路径
 WORKSPACE = /home/cron/os/project/
 OUTPATH   = $(WORKSPACE)build/
-LIBFLAG   = -I $(WORKSPACE)lib/kernel/  -I $(WORKSPACE)lib/  -I $(WORKSPACE)  -I $(WORKSPACE)device
+LIBFLAG   = -I $(WORKSPACE)lib/kernel/  -I $(WORKSPACE)lib/  -I $(WORKSPACE)  -I $(WORKSPACE)device\
+			-I $(WORKSPACE)kernel
 #编译链接用到的参数
 CFLAG     = -Wall  -m32 $(LIBFLAG)  -fno-builtin -fno-stack-protector \
 			-W -Wstrict-prototypes -Wmissing-prototypes -c -o
@@ -19,7 +20,7 @@ LD        = sudo ld
 COPY      = cp
 DEL       = sudo rm
 OBJS      = $(OUTPATH)main.o $(OUTPATH)init.o $(OUTPATH)interrupt.o $(OUTPATH)timer.o\
-			$(OUTPATH)kernel.o $(OUTPATH)print.o $(OUTPATH)debug.o
+			$(OUTPATH)kernel.o $(OUTPATH)print.o $(OUTPATH)debug.o $(OUTPATH)string.o
 default:
 		$(MAKE) img
 img:
