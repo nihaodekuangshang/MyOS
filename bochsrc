@@ -1,0 +1,21 @@
+# 指定虚拟机的内存大小为32M
+megs:32
+
+# 指定虚拟机的BIOS镜像
+romimage: file=BIOS-bochs-legacy
+vgaromimage: file=VGABIOS-lgpl-latest
+
+
+ata0:enabled=1,ioaddr1=0x1f0,ioaddr2=0x3f0,irq=14
+ata0-master:type=disk,path="NewOS.img",mode=flat
+# 从硬盘启动
+boot:disk
+
+# 指定日志文件，里面有各种运行时信息
+log: bochsout.txt
+
+# 不使用鼠标
+mouse: enabled=0
+
+# 指定键盘映射
+keyboard: keymap=./keymaps/x11-pc-us.map
