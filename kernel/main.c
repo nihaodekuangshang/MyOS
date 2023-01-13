@@ -6,22 +6,10 @@
 int main(void) 
 {
    init_all();
-   char *dst = "1234567890iiiiiii";
-   strcpy(dst,"hello,world");
-   put_str(dst);
+   void* addr = get_kernel_pages(3);
+   put_str("\n get_kernel_page start vaddr is ");
+   put_int((uint32_t)addr);
    put_char('\n');
-   put_int(strlen(dst));
-   put_char('\n');
-   char* a="aaaaaaaaa";
-   put_int(strcmp(dst,a));
-   strcat(dst,a);
-   put_str(dst);
-   put_char('\n');
-   put_str(strchr(dst,'l'));
-   put_char('\n');
-   put_str(strrchr(dst,'l'));
-   put_char('\n');
-   put_int(strchrs(dst,'l'));
    while(1);
 
 

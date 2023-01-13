@@ -1,7 +1,8 @@
 #编译用到的路径
 WORKSPACE = /home/cron/os/project/
 OUTPATH   = $(WORKSPACE)build/
-LIBFLAG   = -I $(WORKSPACE)lib/kernel/  -I $(WORKSPACE)lib/  -I $(WORKSPACE)  -I $(WORKSPACE)device
+LIBFLAG   = -I $(WORKSPACE)lib/kernel/  -I $(WORKSPACE)lib/  -I $(WORKSPACE)  -I $(WORKSPACE)device\
+			-I $(WORKSPACE)kernel/ 
 #编译链接用到的参数
 CFLAG     = -m32 $(LIBFLAG) -c -fno-builtin -o
 ASMFLAG   = -f elf -o
@@ -15,9 +16,11 @@ LD        = sudo ld
 COPY      = cp
 DEL       = sudo rm
 
-OBJS      = $(OUTPATH)print.o
+OBJS      = $(OUTPATH)print.o $(OUTPATH)bitmap.o
 default:
 	$(MAKE) $(OBJS)
 
 $(OUTPATH)%.o:%.S
 	$(AS) $(ASMFLAG) $@ $<
+$(OUTPATH)%.o:%.c
+	$(CC) $(CFLAG) $@ $<
