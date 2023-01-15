@@ -1,5 +1,5 @@
 #编译用到的路径
-WORKSPACE = /home/cron/os/project/
+WORKSPACE = /home/cron/unbuntu/project/
 OUTPATH   = $(WORKSPACE)build/
 LIBFLAG   = -I $(WORKSPACE)lib/kernel/  -I $(WORKSPACE)lib/  -I $(WORKSPACE)  -I $(WORKSPACE)device\
 			-I $(WORKSPACE)kernel

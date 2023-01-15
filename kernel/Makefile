@@ -1,5 +1,5 @@
 #编译用到的路径
-WORKSPACE = /home/cron/os/project/
+WORKSPACE = /home/cron/unbuntu/project/
 OUTPATH   = $(WORKSPACE)build/
 LIBFLAG   = -I $(WORKSPACE)lib/kernel/  -I $(WORKSPACE)lib/  -I $(WORKSPACE)  -I $(WORKSPACE)device\
 			-I $(WORKSPACE)kernel/ 
@@ -20,13 +20,13 @@ LD        = sudo ld
 COPY      = cp
 DEL       = sudo rm
 OBJS      = $(OUTPATH)main.o $(OUTPATH)init.o $(OUTPATH)interrupt.o $(OUTPATH)timer.o\
-			$(OUTPATH)kernel.o $(OUTPATH)print.o $(OUTPATH)debug.o $(OUTPATH)string.o\
-			$(OUTPATH)memory.o $(OUTPATH)bitmap.o
+		$(OUTPATH)kernel.o $(OUTPATH)print.o $(OUTPATH)debug.o $(OUTPATH)string.o\
+		$(OUTPATH)memory.o $(OUTPATH)bitmap.o
 default:
 		$(MAKE) img
 img:
-		$(MAKE) NewOS.img
-NewOS.img: $(OUTPATH)kernel.bin
+		$(MAKE) Newunbuntu.img
+Newunbuntu.img: $(OUTPATH)kernel.bin
 	dd if=$(OUTPATH)kernel.bin of=../NewOS.img bs=512 count=200 seek=9 conv=notrunc
 $(OUTPATH)%.o:%.c
 	$(CC) $(CFLAG) $@ $<

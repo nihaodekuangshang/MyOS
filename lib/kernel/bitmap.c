@@ -7,12 +7,12 @@
 
 
 /*初始化位图*/
-void bitmap_init(struct bitmap* btmp)
+void init_bitmap(struct bitmap* btmp)
 {
     memset(btmp->bits,0,btmp->btmp_bytes_len);
 }
 /*判断 bit_idx 位是否为 1 ，若为 1 ，则返回 true ，否则返回 false*/
-bool bitmap_scan_test(struct bitmap* btmp,uint32_t bit_idx)
+bool test_bitmap_scan(struct bitmap* btmp,uint32_t bit_idx)
 {
     uint32_t byte_idx = bit_idx/8; /*取整，作为数组下标,要找那个字节*/
     uint32_t byte_bit = bit_idx%8; /*要判断的是该字节的第几位*/
@@ -44,7 +44,7 @@ int  bitmap_scan(struct bitmap* btmp,uint32_t cnt)
     bit_start = -1;                           //找不到符合条件的直接返回
     while (bit_start_tmp<btmp->btmp_bytes_len*8)
     {
-       if(bitmap_scan_test(btmp,bit_start_tmp)==false) 
+       if(test_bitmap_scan(btmp,bit_start_tmp)==false) 
        	{
             count++;
         }
@@ -62,7 +62,7 @@ int  bitmap_scan(struct bitmap* btmp,uint32_t cnt)
 
 }
 /*将位图 btmp 的 bit_idx 位设置为 value*/
-void bitmap_set(struct bitmap* btmp,uint32_t bit_idx,int8_t value)
+void set_bitmap(struct bitmap* btmp,uint32_t bit_idx,int8_t value)
 {
     ASSERT((value==1)||(value==0));
     uint32_t byte_idx = bit_idx/8; /*取整，作为数组下标,要找那个字节*/
