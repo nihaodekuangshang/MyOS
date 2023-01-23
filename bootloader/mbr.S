@@ -23,53 +23,53 @@ CleanScreen:
 		mov		bx,Message
 		mov		si,0
 
-		push	Message
-		push	0x07
-		push	80
-		push	0
-		push	0
-		call	prints
-		add		sp,0x0a
-		
+	push	Message
+	push	0x07
+	push	80
+	push	0
+	push	0
+	call	prints
+	add		sp,0x0a
+	
 
-		push	4		;待读入的扇区数
-		push	LOADER_BASE_ADDR
-		push	DWORD LOADER_START_SECTOR
-		call	rd_disk_m_16
-		add		sp,4
-		jmp		LOADER_BASE_ADDR+0x300  ;控制权交给loader程序
-		
+	push	4		;待读入的扇区数
+	push	LOADER_BASE_ADDR
+	push	DWORD LOADER_START_SECTOR
+	call	rd_disk_m_16
+	add	sp,4
+	jmp	LOADER_BASE_ADDR  ;控制权交给loader程序
+	
 prints:;void prints(short x,short y,short xsize,short color,char *string)
-		push	bp
-		mov		bp,sp
-		sub		sp,0x40
-		push	ax
-		push	bx
-		push	dx
+	push	bp
+	mov		bp,sp
+	sub		sp,0x40
+	push	ax
+	push	bx
+	push	dx
+	
+
+	;判断坐标是否在范围内
+	mov ax,[bp+0x4]
+	cmp ax,80
+	jae endprints
+
+	mov ax,[bp+0x6]
+	cmp ax,25
+	jae endprints
+
+	mov ax,0xb800
+	mov gs,ax
+	;计算出该坐标在显存中对应的区域
+	mov		bx,[bp+6]
+	mov		ax,[bp+0x8]
+	mul		bx
+	add		ax,[bp+0x4]
+	mov		bx,2
+	mul		bx
 		
-
-		;判断坐标是否在范围内
-		mov ax,[bp+0x4]
-		cmp ax,80
-		jae endprints
-
-		mov ax,[bp+0x6]
-		cmp ax,25
-		jae endprints
-
-		mov ax,0xb800
-		mov gs,ax
-		;计算出该坐标在显存中对应的区域
-		mov		bx,[bp+6]
-		mov		ax,[bp+0x8]
-		mul		bx
-		add		ax,[bp+0x4]
-		mov		bx,2
-		mul		bx
-			
-		mov		dh,[bp+0x0a]
-		mov		bx,[bp+0x0c]
-		mov		bp,ax       ;将算出的像素位置存到bp中
+	mov		dh,[bp+0x0a]
+	mov		bx,[bp+0x0c]
+	mov		bp,ax       ;将算出的像素位置存到bp中
 	ploop:
 		mov		dl,[bx]
 		cmp		dl,0

@@ -106,7 +106,7 @@ put_char:       ;void put_char(uint8_t char_asci);
         mov     ecx,80
         mov     esi,0
         .clean_last_row:   
-            mov     word [ebx+esi*2],0x0720 ;空格   黑底白字
+            mov     word [0xc00b8000+ebx+esi*2],0x0720 ;空格   黑底白字
             inc     esi
             loop .clean_last_row
 

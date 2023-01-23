@@ -14,38 +14,39 @@ intr_entry_table:
 section .text
 intr%1entry:
 %2
-    push    ds
-    push    es
-    push    fs
-    push    gs
-    pushad         ;保存环境
+	push    ds
+	push    es
+	push    fs
+	push    gs
+	pushad	   ;保存环境
 
 
   ; 如果是从片上进入的中断,除了往从片上发送EOI外,还要往主片上发送EOI 
-    mov     al,0x20                   ; 中断结束命令EOI
-    out     0xa0,al                   ; 向从片发送
-    out     0x20,al                   ; 向主片发送
+	mov     al,0x20		      ; 中断结束命令EOI
+	out     0xa0,al		      ; 向从片发送
+	out     0x20,al		      ; 向主片发送
 
-   push %1    ; 不管idt_table中的目标程序是否需要参数,都一律压入中断向量号,方便调试
-   call [idt_table + %1*4]       ; 调用idt_table中的C版本中断处理函数
-   add      esp,4
-   jmp intr_exit
+	push %1    ; 不管idt_table中的目标程序是否需要参数,都一律压入中断向量号,方便调试
+	mov	eax,[idt_table + %1*4]
+	call [eax]	 ; 调用idt_table中的C版本中断处理函数
+	add	    esp,4
+	jmp intr_exit
 
 section  .data
-        dd  intr%1entry              ;存储各个中断入口程序的地址
-                                     ;形成 intr_entry_table 数组
+	dd  intr%1entry		     ;存储各个中断入口程序的地址
+				     ;形成 intr_entry_table 数组
 
 %endmacro
 
 section .text
 intr_exit:
-    popad
-    pop     gs
-    pop     fs
-    pop     es
-    pop     ds
-    add     esp,4      ;跳过错误号
-    iret
+	popad
+	pop     gs
+	pop     fs
+	pop     es
+	pop     ds
+	add     esp,4      ;跳过错误号
+	iret
 
 
 
@@ -81,6 +82,6 @@ VECTOR 0X1A ,ZERO
 VECTOR 0X1B ,ZERO
 VECTOR 0X1C ,ZERO
 VECTOR 0X1D ,ZERO
-VECTOR 0X1E ,ERROR_CODE                               ;处理器自动推错误码
+VECTOR 0X1E ,ERROR_CODE				      ;处理器自动推错误码
 VECTOR 0X1F ,ZERO
 VECTOR 0X20 ,ZERO
