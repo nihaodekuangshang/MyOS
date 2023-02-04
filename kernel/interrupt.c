@@ -104,13 +104,13 @@ static void general_intr_handler(uint8_t vec_nr)
 		cursor_pos++;
 		put_char (' ');
 	}
-	set_cursor(80) ;
+	set_cursor(0) ;
 	//重置光标为屏幕左上角
 	put_str ("! ! ! ! ! ! !\
 	excetion message begin\
 	! ! ! ! ! ! ! ! \n ");
-	set_cursor(168) ;
-	//从第 3 行第 9 个字符开始打印
+	set_cursor(88) ;
+	//从第 2 行第 9 个字符开始打印
 	put_str(intr_name[vec_nr]);
 	if (vec_nr == 14) 
 	{
@@ -225,10 +225,10 @@ enum intr_status intr_disable()
  {
 	uint32_t eflags =0;
 	GET_FLAGS(eflags);
-	return (eflags & EFLAGS_IF)?INTR_ON:INTR_ON;
+	return (eflags & EFLAGS_IF)?INTR_ON:INTR_OFF;
  }
  //设置中断状态是status
  enum intr_status intr_set_status(enum intr_status status)
  {
-	return (status & INTR_ON)?intr_enable():intr_disable(); 
+	return (status == INTR_ON)?intr_enable():intr_disable(); 
  }
