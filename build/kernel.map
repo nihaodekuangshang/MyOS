@@ -156,88 +156,88 @@ LOAD /home/cron/ubuntu/project/build/switch.o
 .plt.sec
  *(.plt.sec)
 
-.text           0x00000000c0001500     0x2295
+.text           0x00000000c0001500     0x2275
  *(.text.unlikely .text.*_unlikely .text.unlikely.*)
  *(.text.exit .text.exit.*)
  *(.text.startup .text.startup.*)
  *(.text.hot .text.hot.*)
  *(SORT_BY_NAME(.text.sorted.*))
  *(.text .stub .text.* .gnu.linkonce.t.*)
- .text          0x00000000c0001500       0xe8 /home/cron/ubuntu/project/build/main.o
+ .text          0x00000000c0001500       0xc6 /home/cron/ubuntu/project/build/main.o
                 0x00000000c0001500                k_thread_a
-                0x00000000c0001535                k_thread_b
-                0x00000000c000156a                main
+                0x00000000c0001528                k_thread_b
+                0x00000000c0001550                main
  .text.__x86.get_pc_thunk.bx
-                0x00000000c00015e8        0x4 /home/cron/ubuntu/project/build/main.o
-                0x00000000c00015e8                __x86.get_pc_thunk.bx
- .text          0x00000000c00015ec       0x2c /home/cron/ubuntu/project/build/init.o
-                0x00000000c00015ec                init_all
- .text          0x00000000c0001618      0x500 /home/cron/ubuntu/project/build/interrupt.o
-                0x00000000c0001877                register_handler
-                0x00000000c00019cd                init_idt
-                0x00000000c0001a67                intr_enable
-                0x00000000c0001a9a                intr_disable
-                0x00000000c0001acd                intr_get_status
-                0x00000000c0001af0                intr_set_status
+                0x00000000c00015c6        0x4 /home/cron/ubuntu/project/build/main.o
+                0x00000000c00015c6                __x86.get_pc_thunk.bx
+ .text          0x00000000c00015ca       0x2c /home/cron/ubuntu/project/build/init.o
+                0x00000000c00015ca                init_all
+ .text          0x00000000c00015f6      0x4fd /home/cron/ubuntu/project/build/interrupt.o
+                0x00000000c0001852                register_handler
+                0x00000000c00019a8                init_idt
+                0x00000000c0001a42                intr_enable
+                0x00000000c0001a75                intr_disable
+                0x00000000c0001aa8                intr_get_status
+                0x00000000c0001acf                intr_set_status
  .text.__x86.get_pc_thunk.ax
-                0x00000000c0001b18        0x4 /home/cron/ubuntu/project/build/interrupt.o
-                0x00000000c0001b18                __x86.get_pc_thunk.ax
- .text          0x00000000c0001b1c      0x18f /home/cron/ubuntu/project/build/timer.o
-                0x00000000c0001c6a                init_time
- *fill*         0x00000000c0001cab        0x5 
- .text          0x00000000c0001cb0      0x3f6 /home/cron/ubuntu/project/build/kernel.o
- *fill*         0x00000000c00020a6        0xa 
- .text          0x00000000c00020b0      0x190 /home/cron/ubuntu/project/build/print.o
-                0x00000000c00020b0                put_char
-                0x00000000c0002192                put_str
-                0x00000000c00021b2                put_int
-                0x00000000c0002214                set_cursor
- .text          0x00000000c0002240       0xce /home/cron/ubuntu/project/build/debug.o
-                0x00000000c0002240                panic_spin
- .text          0x00000000c000230e      0x4e1 /home/cron/ubuntu/project/build/string.o
-                0x00000000c000230e                memset
-                0x00000000c0002377                memcpy
-                0x00000000c00023ee                memcmp
-                0x00000000c0002487                strcpy
-                0x00000000c00024f8                strlen
-                0x00000000c0002555                strcmp
-                0x00000000c00025f5                strchr
-                0x00000000c000267b                strrchr
-                0x00000000c00026f3                strcat
-                0x00000000c0002779                strchrs
- .text          0x00000000c00027ef      0x613 /home/cron/ubuntu/project/build/memory.o
-                0x00000000c0002a80                malloc_page
-                0x00000000c0002b4e                get_kernel_page
-                0x00000000c0002dae                init_mem
- .text          0x00000000c0002e02      0x22e /home/cron/ubuntu/project/build/bitmap.o
-                0x00000000c0002e02                init_bitmap
-                0x00000000c0002e35                test_bitmap_scan
-                0x00000000c0002e7e                bitmap_scan
-                0x00000000c0002f6c                set_bitmap
- .text          0x00000000c0003030      0x4b1 /home/cron/ubuntu/project/build/thread.o
-                0x00000000c0003030                running_thread
-                0x00000000c000307b                thread_create
-                0x00000000c00030ff                init_thread
-                0x00000000c00031aa                thread_start
-                0x00000000c000333f                schedule
-                0x00000000c000347c                thread_init
+                0x00000000c0001af3        0x4 /home/cron/ubuntu/project/build/interrupt.o
+                0x00000000c0001af3                __x86.get_pc_thunk.ax
+ .text          0x00000000c0001af7      0x18f /home/cron/ubuntu/project/build/timer.o
+                0x00000000c0001c45                init_time
+ *fill*         0x00000000c0001c86        0xa 
+ .text          0x00000000c0001c90      0x3f6 /home/cron/ubuntu/project/build/kernel.o
+ *fill*         0x00000000c0002086        0xa 
+ .text          0x00000000c0002090      0x190 /home/cron/ubuntu/project/build/print.o
+                0x00000000c0002090                put_char
+                0x00000000c0002172                put_str
+                0x00000000c0002192                put_int
+                0x00000000c00021f4                set_cursor
+ .text          0x00000000c0002220       0xce /home/cron/ubuntu/project/build/debug.o
+                0x00000000c0002220                panic_spin
+ .text          0x00000000c00022ee      0x4e1 /home/cron/ubuntu/project/build/string.o
+                0x00000000c00022ee                memset
+                0x00000000c0002357                memcpy
+                0x00000000c00023ce                memcmp
+                0x00000000c0002467                strcpy
+                0x00000000c00024d8                strlen
+                0x00000000c0002535                strcmp
+                0x00000000c00025d5                strchr
+                0x00000000c000265b                strrchr
+                0x00000000c00026d3                strcat
+                0x00000000c0002759                strchrs
+ .text          0x00000000c00027cf      0x613 /home/cron/ubuntu/project/build/memory.o
+                0x00000000c0002a60                malloc_page
+                0x00000000c0002b2e                get_kernel_page
+                0x00000000c0002d8e                init_mem
+ .text          0x00000000c0002de2      0x22e /home/cron/ubuntu/project/build/bitmap.o
+                0x00000000c0002de2                init_bitmap
+                0x00000000c0002e15                test_bitmap_scan
+                0x00000000c0002e5e                bitmap_scan
+                0x00000000c0002f4c                set_bitmap
+ .text          0x00000000c0003010      0x4b1 /home/cron/ubuntu/project/build/thread.o
+                0x00000000c0003010                running_thread
+                0x00000000c000305b                thread_create
+                0x00000000c00030df                init_thread
+                0x00000000c000318a                thread_start
+                0x00000000c000331f                schedule
+                0x00000000c000345c                thread_init
  .text.__x86.get_pc_thunk.dx
-                0x00000000c00034e1        0x4 /home/cron/ubuntu/project/build/thread.o
-                0x00000000c00034e1                __x86.get_pc_thunk.dx
- .text          0x00000000c00034e5      0x299 /home/cron/ubuntu/project/build/list.o
-                0x00000000c00034e5                list_init
-                0x00000000c000351d                list_insert_before
-                0x00000000c0003575                list_push
-                0x00000000c000359d                list_append
-                0x00000000c00035c5                list_remove
-                0x00000000c000360e                list_pop
-                0x00000000c0003673                list_empty
-                0x00000000c0003696                list_len
-                0x00000000c00036d5                list_traversal
-                0x00000000c0003739                elem_find
- *fill*         0x00000000c000377e        0x2 
- .text          0x00000000c0003780       0x15 /home/cron/ubuntu/project/build/switch.o
-                0x00000000c0003780                switch_to
+                0x00000000c00034c1        0x4 /home/cron/ubuntu/project/build/thread.o
+                0x00000000c00034c1                __x86.get_pc_thunk.dx
+ .text          0x00000000c00034c5      0x299 /home/cron/ubuntu/project/build/list.o
+                0x00000000c00034c5                list_init
+                0x00000000c00034fd                list_insert_before
+                0x00000000c0003555                list_push
+                0x00000000c000357d                list_append
+                0x00000000c00035a5                list_remove
+                0x00000000c00035ee                list_pop
+                0x00000000c0003653                list_empty
+                0x00000000c0003676                list_len
+                0x00000000c00036b5                list_traversal
+                0x00000000c0003719                elem_find
+ *fill*         0x00000000c000375e        0x2 
+ .text          0x00000000c0003760       0x15 /home/cron/ubuntu/project/build/switch.o
+                0x00000000c0003760                switch_to
  *(.gnu.warning)
 
 .fini

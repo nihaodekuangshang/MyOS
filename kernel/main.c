@@ -9,7 +9,6 @@ void k_thread_a(void* arg)
 	while(1)
 	{
 		put_str(para);
-		put_char('\n');
 	}
 }
 void k_thread_b(void* arg)
@@ -18,7 +17,6 @@ void k_thread_b(void* arg)
 	while(1)
 	{
 		put_str(para);
-		put_char('\n');
 	}
 }
 int main(void) 
@@ -28,10 +26,10 @@ int main(void)
 	thread_start("k_thread_a",31,k_thread_a,"k_thread_a     ;");
 	thread_start("k_thread_b",11,k_thread_a,"k_thread_b     ;");
 
+	intr_enable();						//开启中断！！！！！
 	while(1)
 	{
 		put_str("MAIN    ;");
-		put_char('\n');
 	}
 
 	return 0;
