@@ -16,7 +16,10 @@ Discarded input sections
  .note.GNU-stack
                 0x0000000000000000        0x0 /home/cron/ubuntu/project/build/interrupt.o
  .group         0x0000000000000000        0x8 /home/cron/ubuntu/project/build/timer.o
+ .group         0x0000000000000000        0x8 /home/cron/ubuntu/project/build/timer.o
  .text.__x86.get_pc_thunk.ax
+                0x0000000000000000        0x4 /home/cron/ubuntu/project/build/timer.o
+ .text.__x86.get_pc_thunk.bx
                 0x0000000000000000        0x4 /home/cron/ubuntu/project/build/timer.o
  .note.GNU-stack
                 0x0000000000000000        0x0 /home/cron/ubuntu/project/build/timer.o
@@ -43,6 +46,23 @@ Discarded input sections
                 0x0000000000000000        0x4 /home/cron/ubuntu/project/build/bitmap.o
  .note.GNU-stack
                 0x0000000000000000        0x0 /home/cron/ubuntu/project/build/bitmap.o
+ .group         0x0000000000000000        0x8 /home/cron/ubuntu/project/build/thread.o
+ .group         0x0000000000000000        0x8 /home/cron/ubuntu/project/build/thread.o
+ .group         0x0000000000000000        0x8 /home/cron/ubuntu/project/build/thread.o
+ .text.__x86.get_pc_thunk.ax
+                0x0000000000000000        0x4 /home/cron/ubuntu/project/build/thread.o
+ .text.__x86.get_pc_thunk.bx
+                0x0000000000000000        0x4 /home/cron/ubuntu/project/build/thread.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 /home/cron/ubuntu/project/build/thread.o
+ .group         0x0000000000000000        0x8 /home/cron/ubuntu/project/build/list.o
+ .group         0x0000000000000000        0x8 /home/cron/ubuntu/project/build/list.o
+ .text.__x86.get_pc_thunk.ax
+                0x0000000000000000        0x4 /home/cron/ubuntu/project/build/list.o
+ .text.__x86.get_pc_thunk.bx
+                0x0000000000000000        0x4 /home/cron/ubuntu/project/build/list.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 /home/cron/ubuntu/project/build/list.o
 
 Memory Configuration
 
@@ -62,6 +82,9 @@ LOAD /home/cron/ubuntu/project/build/debug.o
 LOAD /home/cron/ubuntu/project/build/string.o
 LOAD /home/cron/ubuntu/project/build/memory.o
 LOAD /home/cron/ubuntu/project/build/bitmap.o
+LOAD /home/cron/ubuntu/project/build/thread.o
+LOAD /home/cron/ubuntu/project/build/list.o
+LOAD /home/cron/ubuntu/project/build/switch.o
                 [!provide]                        PROVIDE (__executable_start = SEGMENT_START ("text-segment", 0x8048000))
                 0x00000000080480d4                . = (SEGMENT_START ("text-segment", 0x8048000) + SIZEOF_HEADERS)
 
@@ -133,59 +156,88 @@ LOAD /home/cron/ubuntu/project/build/bitmap.o
 .plt.sec
  *(.plt.sec)
 
-.text           0x00000000c0001500     0x1947
+.text           0x00000000c0001500     0x2295
  *(.text.unlikely .text.*_unlikely .text.unlikely.*)
  *(.text.exit .text.exit.*)
  *(.text.startup .text.startup.*)
  *(.text.hot .text.hot.*)
  *(SORT_BY_NAME(.text.sorted.*))
  *(.text .stub .text.* .gnu.linkonce.t.*)
- .text          0x00000000c0001500       0x62 /home/cron/ubuntu/project/build/main.o
-                0x00000000c0001500                main
+ .text          0x00000000c0001500       0xe8 /home/cron/ubuntu/project/build/main.o
+                0x00000000c0001500                k_thread_a
+                0x00000000c0001535                k_thread_b
+                0x00000000c000156a                main
  .text.__x86.get_pc_thunk.bx
-                0x00000000c0001562        0x4 /home/cron/ubuntu/project/build/main.o
-                0x00000000c0001562                __x86.get_pc_thunk.bx
- .text          0x00000000c0001566       0x27 /home/cron/ubuntu/project/build/init.o
-                0x00000000c0001566                init_all
- .text          0x00000000c000158d      0x448 /home/cron/ubuntu/project/build/interrupt.o
-                0x00000000c000188a                init_idt
-                0x00000000c0001924                intr_enable
-                0x00000000c0001957                intr_disable
-                0x00000000c000198a                intr_get_status
-                0x00000000c00019ad                intr_set_status
+                0x00000000c00015e8        0x4 /home/cron/ubuntu/project/build/main.o
+                0x00000000c00015e8                __x86.get_pc_thunk.bx
+ .text          0x00000000c00015ec       0x2c /home/cron/ubuntu/project/build/init.o
+                0x00000000c00015ec                init_all
+ .text          0x00000000c0001618      0x500 /home/cron/ubuntu/project/build/interrupt.o
+                0x00000000c0001877                register_handler
+                0x00000000c00019cd                init_idt
+                0x00000000c0001a67                intr_enable
+                0x00000000c0001a9a                intr_disable
+                0x00000000c0001acd                intr_get_status
+                0x00000000c0001af0                intr_set_status
  .text.__x86.get_pc_thunk.ax
-                0x00000000c00019d5        0x4 /home/cron/ubuntu/project/build/interrupt.o
-                0x00000000c00019d5                __x86.get_pc_thunk.ax
- .text          0x00000000c00019d9       0xe7 /home/cron/ubuntu/project/build/timer.o
-                0x00000000c0001a9b                init_time
- .text          0x00000000c0001ac0      0x417 /home/cron/ubuntu/project/build/kernel.o
- *fill*         0x00000000c0001ed7        0x9 
- .text          0x00000000c0001ee0      0x177 /home/cron/ubuntu/project/build/print.o
-                0x00000000c0001ee0                put_char
-                0x00000000c0001fd5                put_str
-                0x00000000c0001ff5                put_int
- .text          0x00000000c0002057       0xce /home/cron/ubuntu/project/build/debug.o
-                0x00000000c0002057                panic_spin
- .text          0x00000000c0002125      0x4e1 /home/cron/ubuntu/project/build/string.o
-                0x00000000c0002125                memset
-                0x00000000c000218e                memcpy
-                0x00000000c0002205                memcmp
-                0x00000000c000229e                strcpy
-                0x00000000c000230f                strlen
-                0x00000000c000236c                strcmp
-                0x00000000c000240c                strchr
-                0x00000000c0002492                strrchr
-                0x00000000c000250a                strcat
-                0x00000000c0002590                strchrs
- .text          0x00000000c0002606      0x613 /home/cron/ubuntu/project/build/memory.o
-                0x00000000c0002897                malloc_page
-                0x00000000c0002965                get_kernel_page
-                0x00000000c0002bc5                init_mem
- .text          0x00000000c0002c19      0x22e /home/cron/ubuntu/project/build/bitmap.o
-                0x00000000c0002c19                init_bitmap
-                0x00000000c0002c4c                test_bitmap_scan
-                0x00000000c0002c95                bitmap_scan
-                0x00000000c0002d83                set_bitmap
+                0x00000000c0001b18        0x4 /home/cron/ubuntu/project/build/interrupt.o
+                0x00000000c0001b18                __x86.get_pc_thunk.ax
+ .text          0x00000000c0001b1c      0x18f /home/cron/ubuntu/project/build/timer.o
+                0x00000000c0001c6a                init_time
+ *fill*         0x00000000c0001cab        0x5 
+ .text          0x00000000c0001cb0      0x3f6 /home/cron/ubuntu/project/build/kernel.o
+ *fill*         0x00000000c00020a6        0xa 
+ .text          0x00000000c00020b0      0x190 /home/cron/ubuntu/project/build/print.o
+                0x00000000c00020b0                put_char
+                0x00000000c0002192                put_str
+                0x00000000c00021b2                put_int
+                0x00000000c0002214                set_cursor
+ .text          0x00000000c0002240       0xce /home/cron/ubuntu/project/build/debug.o
+                0x00000000c0002240                panic_spin
+ .text          0x00000000c000230e      0x4e1 /home/cron/ubuntu/project/build/string.o
+                0x00000000c000230e                memset
+                0x00000000c0002377                memcpy
+                0x00000000c00023ee                memcmp
+                0x00000000c0002487                strcpy
+                0x00000000c00024f8                strlen
+                0x00000000c0002555                strcmp
+                0x00000000c00025f5                strchr
+                0x00000000c000267b                strrchr
+                0x00000000c00026f3                strcat
+                0x00000000c0002779                strchrs
+ .text          0x00000000c00027ef      0x613 /home/cron/ubuntu/project/build/memory.o
+                0x00000000c0002a80                malloc_page
+                0x00000000c0002b4e                get_kernel_page
+                0x00000000c0002dae                init_mem
+ .text          0x00000000c0002e02      0x22e /home/cron/ubuntu/project/build/bitmap.o
+                0x00000000c0002e02                init_bitmap
+                0x00000000c0002e35                test_bitmap_scan
+                0x00000000c0002e7e                bitmap_scan
+                0x00000000c0002f6c                set_bitmap
+ .text          0x00000000c0003030      0x4b1 /home/cron/ubuntu/project/build/thread.o
+                0x00000000c0003030                running_thread
+                0x00000000c000307b                thread_create
+                0x00000000c00030ff                init_thread
+                0x00000000c00031aa                thread_start
+                0x00000000c000333f                schedule
+                0x00000000c000347c                thread_init
+ .text.__x86.get_pc_thunk.dx
+                0x00000000c00034e1        0x4 /home/cron/ubuntu/project/build/thread.o
+                0x00000000c00034e1                __x86.get_pc_thunk.dx
+ .text          0x00000000c00034e5      0x299 /home/cron/ubuntu/project/build/list.o
+                0x00000000c00034e5                list_init
+                0x00000000c000351d                list_insert_before
+                0x00000000c0003575                list_push
+                0x00000000c000359d                list_append
+                0x00000000c00035c5                list_remove
+                0x00000000c000360e                list_pop
+                0x00000000c0003673                list_empty
+                0x00000000c0003696                list_len
+                0x00000000c00036d5                list_traversal
+                0x00000000c0003739                elem_find
+ *fill*         0x00000000c000377e        0x2 
+ .text          0x00000000c0003780       0x15 /home/cron/ubuntu/project/build/switch.o
+                0x00000000c0003780                switch_to
  *(.gnu.warning)
 
 .fini
@@ -193,19 +245,24 @@ LOAD /home/cron/ubuntu/project/build/bitmap.o
                 [!provide]                        PROVIDE (__etext = .)
                 [!provide]                        PROVIDE (_etext = .)
                 [!provide]                        PROVIDE (etext = .)
-                0x00000000c0003000                . = ALIGN (CONSTANT (MAXPAGESIZE))
-                0x00000000c0003000                . = SEGMENT_START ("rodata-segment", (ALIGN (CONSTANT (MAXPAGESIZE)) + (. & (CONSTANT (MAXPAGESIZE) - 0x1))))
+                0x00000000c0004000                . = ALIGN (CONSTANT (MAXPAGESIZE))
+                0x00000000c0004000                . = SEGMENT_START ("rodata-segment", (ALIGN (CONSTANT (MAXPAGESIZE)) + (. & (CONSTANT (MAXPAGESIZE) - 0x1))))
 
-.rodata         0x00000000c0003000      0x45f
+.rodata         0x00000000c0004000      0x6e1
  *(.rodata .rodata.* .gnu.linkonce.r.*)
- .rodata        0x00000000c0003000       0x1b /home/cron/ubuntu/project/build/main.o
- *fill*         0x00000000c000301b        0x1 
- .rodata        0x00000000c000301c      0x230 /home/cron/ubuntu/project/build/interrupt.o
- .rodata        0x00000000c000324c       0x23 /home/cron/ubuntu/project/build/debug.o
- *fill*         0x00000000c000326f        0x1 
- .rodata        0x00000000c0003270       0xd4 /home/cron/ubuntu/project/build/string.o
- .rodata        0x00000000c0003344       0xf0 /home/cron/ubuntu/project/build/memory.o
- .rodata        0x00000000c0003434       0x2b /home/cron/ubuntu/project/build/bitmap.o
+ .rodata        0x00000000c0004000       0x42 /home/cron/ubuntu/project/build/main.o
+ *fill*         0x00000000c0004042        0x2 
+ .rodata        0x00000000c0004044      0x2a8 /home/cron/ubuntu/project/build/interrupt.o
+ .rodata        0x00000000c00042ec       0x37 /home/cron/ubuntu/project/build/timer.o
+ .rodata        0x00000000c0004323       0x23 /home/cron/ubuntu/project/build/debug.o
+ *fill*         0x00000000c0004346        0x2 
+ .rodata        0x00000000c0004348       0xd4 /home/cron/ubuntu/project/build/string.o
+ .rodata        0x00000000c000441c       0xf0 /home/cron/ubuntu/project/build/memory.o
+ .rodata        0x00000000c000450c       0x2b /home/cron/ubuntu/project/build/bitmap.o
+ *fill*         0x00000000c0004537        0x1 
+ .rodata        0x00000000c0004538      0x175 /home/cron/ubuntu/project/build/thread.o
+ *fill*         0x00000000c00046ad        0x3 
+ .rodata        0x00000000c00046b0       0x31 /home/cron/ubuntu/project/build/list.o
 
 .rodata1
  *(.rodata1)
@@ -214,23 +271,27 @@ LOAD /home/cron/ubuntu/project/build/bitmap.o
  *(.eh_frame_hdr)
  *(.eh_frame_entry .eh_frame_entry.*)
 
-.eh_frame       0x00000000c0003460      0x5b0
+.eh_frame       0x00000000c00046e4      0x8a8
  *(.eh_frame)
- .eh_frame      0x00000000c0003460       0x54 /home/cron/ubuntu/project/build/main.o
- .eh_frame      0x00000000c00034b4       0x24 /home/cron/ubuntu/project/build/init.o
+ .eh_frame      0x00000000c00046e4       0x8c /home/cron/ubuntu/project/build/main.o
+ .eh_frame      0x00000000c0004770       0x24 /home/cron/ubuntu/project/build/init.o
                                          0x50 (size before relaxing)
- .eh_frame      0x00000000c00034d8      0x180 /home/cron/ubuntu/project/build/interrupt.o
-                                        0x1ac (size before relaxing)
- .eh_frame      0x00000000c0003658       0x6c /home/cron/ubuntu/project/build/timer.o
-                                         0x98 (size before relaxing)
- .eh_frame      0x00000000c00036c4       0x1c /home/cron/ubuntu/project/build/debug.o
+ .eh_frame      0x00000000c0004794      0x1a0 /home/cron/ubuntu/project/build/interrupt.o
+                                        0x1cc (size before relaxing)
+ .eh_frame      0x00000000c0004934       0x94 /home/cron/ubuntu/project/build/timer.o
+                                         0xd4 (size before relaxing)
+ .eh_frame      0x00000000c00049c8       0x1c /home/cron/ubuntu/project/build/debug.o
                                          0x48 (size before relaxing)
- .eh_frame      0x00000000c00036e0      0x168 /home/cron/ubuntu/project/build/string.o
+ .eh_frame      0x00000000c00049e4      0x168 /home/cron/ubuntu/project/build/string.o
                                         0x194 (size before relaxing)
- .eh_frame      0x00000000c0003848      0x13c /home/cron/ubuntu/project/build/memory.o
+ .eh_frame      0x00000000c0004b4c      0x13c /home/cron/ubuntu/project/build/memory.o
                                         0x17c (size before relaxing)
- .eh_frame      0x00000000c0003984       0x8c /home/cron/ubuntu/project/build/bitmap.o
+ .eh_frame      0x00000000c0004c88       0x8c /home/cron/ubuntu/project/build/bitmap.o
                                          0xb8 (size before relaxing)
+ .eh_frame      0x00000000c0004d14      0x12c /home/cron/ubuntu/project/build/thread.o
+                                        0x16c (size before relaxing)
+ .eh_frame      0x00000000c0004e40      0x14c /home/cron/ubuntu/project/build/list.o
+                                        0x18c (size before relaxing)
  *(.eh_frame.*)
 
 .gcc_except_table
@@ -241,7 +302,7 @@ LOAD /home/cron/ubuntu/project/build/bitmap.o
 
 .exception_ranges
  *(.exception_ranges*)
-                0x00000000c0005000                . = DATA_SEGMENT_ALIGN (CONSTANT (MAXPAGESIZE), CONSTANT (COMMONPAGESIZE))
+                0x00000000c0006000                . = DATA_SEGMENT_ALIGN (CONSTANT (MAXPAGESIZE), CONSTANT (COMMONPAGESIZE))
 
 .eh_frame
  *(.eh_frame)
@@ -256,7 +317,7 @@ LOAD /home/cron/ubuntu/project/build/bitmap.o
 .exception_ranges
  *(.exception_ranges*)
 
-.tdata          0x00000000c0005000        0x0
+.tdata          0x00000000c0006000        0x0
                 [!provide]                        PROVIDE (__tdata_start = .)
  *(.tdata .tdata.* .gnu.linkonce.td.*)
 
@@ -264,18 +325,18 @@ LOAD /home/cron/ubuntu/project/build/bitmap.o
  *(.tbss .tbss.* .gnu.linkonce.tb.*)
  *(.tcommon)
 
-.preinit_array  0x00000000c0005000        0x0
+.preinit_array  0x00000000c0006000        0x0
                 [!provide]                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array)
                 [!provide]                        PROVIDE (__preinit_array_end = .)
 
-.init_array     0x00000000c0005000        0x0
+.init_array     0x00000000c0006000        0x0
                 [!provide]                        PROVIDE (__init_array_start = .)
  *(SORT_BY_INIT_PRIORITY(.init_array.*) SORT_BY_INIT_PRIORITY(.ctors.*))
  *(.init_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .ctors)
                 [!provide]                        PROVIDE (__init_array_end = .)
 
-.fini_array     0x00000000c0005000        0x0
+.fini_array     0x00000000c0006000        0x0
                 [!provide]                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_INIT_PRIORITY(.fini_array.*) SORT_BY_INIT_PRIORITY(.dtors.*))
  *(.fini_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .dtors)
@@ -305,64 +366,72 @@ LOAD /home/cron/ubuntu/project/build/bitmap.o
 .dynamic
  *(.dynamic)
 
-.got            0x00000000c0005000        0x0
+.got            0x00000000c0006000        0x0
  *(.got)
- .got           0x00000000c0005000        0x0 /home/cron/ubuntu/project/build/main.o
+ .got           0x00000000c0006000        0x0 /home/cron/ubuntu/project/build/main.o
  *(.igot)
-                0x00000000c0005ff4                . = DATA_SEGMENT_RELRO_END (., (SIZEOF (.got.plt) >= 0xc)?0xc:0x0)
+                0x00000000c0006ff4                . = DATA_SEGMENT_RELRO_END (., (SIZEOF (.got.plt) >= 0xc)?0xc:0x0)
 
-.got.plt        0x00000000c0005000        0xc
+.got.plt        0x00000000c0006000        0xc
  *(.got.plt)
- .got.plt       0x00000000c0005000        0xc /home/cron/ubuntu/project/build/main.o
-                0x00000000c0005000                _GLOBAL_OFFSET_TABLE_
+ .got.plt       0x00000000c0006000        0xc /home/cron/ubuntu/project/build/main.o
+                0x00000000c0006000                _GLOBAL_OFFSET_TABLE_
  *(.igot.plt)
- .igot.plt      0x00000000c000500c        0x0 /home/cron/ubuntu/project/build/main.o
+ .igot.plt      0x00000000c000600c        0x0 /home/cron/ubuntu/project/build/main.o
 
-.data           0x00000000c000500c       0x8c
+.data           0x00000000c000600c       0x8c
  *(.data .data.* .gnu.linkonce.d.*)
- .data          0x00000000c000500c        0x0 /home/cron/ubuntu/project/build/main.o
- .data          0x00000000c000500c        0x0 /home/cron/ubuntu/project/build/init.o
- .data          0x00000000c000500c        0x0 /home/cron/ubuntu/project/build/interrupt.o
- .data          0x00000000c000500c        0x0 /home/cron/ubuntu/project/build/timer.o
- .data          0x00000000c000500c       0x84 /home/cron/ubuntu/project/build/kernel.o
-                0x00000000c000500c                intr_entry_table
- .data          0x00000000c0005090        0x8 /home/cron/ubuntu/project/build/print.o
- .data          0x00000000c0005098        0x0 /home/cron/ubuntu/project/build/debug.o
- .data          0x00000000c0005098        0x0 /home/cron/ubuntu/project/build/string.o
- .data          0x00000000c0005098        0x0 /home/cron/ubuntu/project/build/memory.o
- .data          0x00000000c0005098        0x0 /home/cron/ubuntu/project/build/bitmap.o
+ .data          0x00000000c000600c        0x0 /home/cron/ubuntu/project/build/main.o
+ .data          0x00000000c000600c        0x0 /home/cron/ubuntu/project/build/init.o
+ .data          0x00000000c000600c        0x0 /home/cron/ubuntu/project/build/interrupt.o
+ .data          0x00000000c000600c        0x0 /home/cron/ubuntu/project/build/timer.o
+ .data          0x00000000c000600c       0x84 /home/cron/ubuntu/project/build/kernel.o
+                0x00000000c000600c                intr_entry_table
+ .data          0x00000000c0006090        0x8 /home/cron/ubuntu/project/build/print.o
+ .data          0x00000000c0006098        0x0 /home/cron/ubuntu/project/build/debug.o
+ .data          0x00000000c0006098        0x0 /home/cron/ubuntu/project/build/string.o
+ .data          0x00000000c0006098        0x0 /home/cron/ubuntu/project/build/memory.o
+ .data          0x00000000c0006098        0x0 /home/cron/ubuntu/project/build/bitmap.o
+ .data          0x00000000c0006098        0x0 /home/cron/ubuntu/project/build/thread.o
+ .data          0x00000000c0006098        0x0 /home/cron/ubuntu/project/build/list.o
 
 .data1
  *(.data1)
-                0x00000000c0005098                _edata = .
+                0x00000000c0006098                _edata = .
                 [!provide]                        PROVIDE (edata = .)
-                0x00000000c0005098                . = .
-                0x00000000c0005098                __bss_start = .
+                0x00000000c0006098                . = .
+                0x00000000c0006098                __bss_start = .
 
-.bss            0x00000000c00050a0      0x274
+.bss            0x00000000c00060a0      0x180
  *(.dynbss)
  *(.bss .bss.* .gnu.linkonce.b.*)
- .bss           0x00000000c00050a0        0x0 /home/cron/ubuntu/project/build/main.o
- .bss           0x00000000c00050a0        0x0 /home/cron/ubuntu/project/build/init.o
- .bss           0x00000000c00050a0      0x248 /home/cron/ubuntu/project/build/interrupt.o
-                0x00000000c00050a0                intr_name
-                0x00000000c0005140                idt_table
- .bss           0x00000000c00052e8        0x0 /home/cron/ubuntu/project/build/timer.o
- .bss           0x00000000c00052e8        0x0 /home/cron/ubuntu/project/build/debug.o
- .bss           0x00000000c00052e8        0x0 /home/cron/ubuntu/project/build/string.o
- .bss           0x00000000c00052e8       0x2c /home/cron/ubuntu/project/build/memory.o
-                0x00000000c00052e8                user_pool
-                0x00000000c00052f8                kernel_pool
-                0x00000000c0005308                kernel_vaddr
- .bss           0x00000000c0005314        0x0 /home/cron/ubuntu/project/build/bitmap.o
+ .bss           0x00000000c00060a0        0x0 /home/cron/ubuntu/project/build/main.o
+ .bss           0x00000000c00060a0        0x0 /home/cron/ubuntu/project/build/init.o
+ .bss           0x00000000c00060a0      0x128 /home/cron/ubuntu/project/build/interrupt.o
+                0x00000000c00060a0                intr_name
+                0x00000000c0006140                idt_table
+ .bss           0x00000000c00061c8        0x4 /home/cron/ubuntu/project/build/timer.o
+                0x00000000c00061c8                ticks
+ .bss           0x00000000c00061cc        0x0 /home/cron/ubuntu/project/build/debug.o
+ .bss           0x00000000c00061cc        0x0 /home/cron/ubuntu/project/build/string.o
+ .bss           0x00000000c00061cc       0x2c /home/cron/ubuntu/project/build/memory.o
+                0x00000000c00061cc                user_pool
+                0x00000000c00061dc                kernel_pool
+                0x00000000c00061ec                kernel_vaddr
+ .bss           0x00000000c00061f8        0x0 /home/cron/ubuntu/project/build/bitmap.o
+ .bss           0x00000000c00061f8       0x28 /home/cron/ubuntu/project/build/thread.o
+                0x00000000c00061f8                main_thread
+                0x00000000c00061fc                thread_ready_list
+                0x00000000c000620c                thread_all_list
+ .bss           0x00000000c0006220        0x0 /home/cron/ubuntu/project/build/list.o
  *(COMMON)
-                0x00000000c0005314                . = ALIGN ((. != 0x0)?0x4:0x1)
-                0x00000000c0005314                . = ALIGN (0x4)
-                0x00000000c0005314                . = SEGMENT_START ("ldata-segment", .)
-                0x00000000c0005314                . = ALIGN (0x4)
-                0x00000000c0005314                _end = .
+                0x00000000c0006220                . = ALIGN ((. != 0x0)?0x4:0x1)
+                0x00000000c0006220                . = ALIGN (0x4)
+                0x00000000c0006220                . = SEGMENT_START ("ldata-segment", .)
+                0x00000000c0006220                . = ALIGN (0x4)
+                0x00000000c0006220                _end = .
                 [!provide]                        PROVIDE (end = .)
-                0x00000000c0005314                . = DATA_SEGMENT_END (.)
+                0x00000000c0006220                . = DATA_SEGMENT_END (.)
 
 .stab
  *(.stab)
@@ -393,6 +462,8 @@ LOAD /home/cron/ubuntu/project/build/bitmap.o
  .comment       0x000000000000002b       0x2c /home/cron/ubuntu/project/build/string.o
  .comment       0x000000000000002b       0x2c /home/cron/ubuntu/project/build/memory.o
  .comment       0x000000000000002b       0x2c /home/cron/ubuntu/project/build/bitmap.o
+ .comment       0x000000000000002b       0x2c /home/cron/ubuntu/project/build/thread.o
+ .comment       0x000000000000002b       0x2c /home/cron/ubuntu/project/build/list.o
 
 .gnu.build.attributes
  *(.gnu.build.attributes .gnu.build.attributes.*)

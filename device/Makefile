@@ -1,7 +1,8 @@
 #编译用到的路径
 WORKSPACE = /home/cron/ubuntu/project/
 OUTPATH = $(WORKSPACE)build/
-LIBFLAG = -I $(WORKSPACE)lib/kernel/  -I $(WORKSPACE)lib/  -I $(WORKSPACE)  -I $(WORKSPACE)device
+LIBFLAG   = -I $(WORKSPACE)lib/kernel/  -I $(WORKSPACE)lib/  -I $(WORKSPACE)  -I $(WORKSPACE)device\
+			-I $(WORKSPACE)kernel/  -I $(WORKSPACE)thread/
 #编译链接用到的参数
 CFLAG  = -m32 $(LIBFLAG) -c -fno-builtin -o
 

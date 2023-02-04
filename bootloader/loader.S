@@ -28,6 +28,8 @@ gdt_ptr:    dw GDT_LIMIT
 	    dd GDT_BASE
 idt_ptr:    dw 0
 	    dd 0
+KERNEL_ENTER_ADDR:        ;存放kernel入口地址
+	    dd 0
 ards_buf    times 244 db 0 ;存放读取到ards的位置
 ards_nr     dw 0 ;读取的ards的数量
 
@@ -169,7 +171,7 @@ loader_start:
 enter_kernel:
     call kernel_init					          ;根据我们的1M以下的内存分布区 综合考虑出的数据
     mov  esp,0xc009f000
-    jmp  KERNEL_ENTER_ADDR
+    jmp  [KERNEL_ENTER_ADDR]
 
 ;------------------------------- 创建页表 ------------------------------------------------    
 
@@ -234,6 +236,8 @@ kernel_init:
 	xor	edx,edx ;dx存放程序头的大小
 
 
+	mov	ebx,[KERNEL_BIN_BASE_ADDR + 0x18] ;偏移0x1c处是 e_entry
+	mov	[KERNEL_ENTER_ADDR],ebx           ;将入口地址放到指定处方便跳转
 	mov	ebx,[KERNEL_BIN_BASE_ADDR + 0x1c] ;偏移0x1c处是 e_phoff
 	mov	cx,[KERNEL_BIN_BASE_ADDR + 0x2c]  ;偏移0x2c处是 e_phnum
 	mov	dx,[KERNEL_BIN_BASE_ADDR + 0x2A]  ;偏移0x2A处是 e_phentsize

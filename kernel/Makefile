@@ -1,9 +1,11 @@
 #编译用到的路径
 SHELL = /bin/bash
-WORKSPACE = /home/cron/ubuntu/project/
+HOMESPACE = /home/cron/ubuntu/
+WORKSPACE =$(HOMESPACE)project/
 OUTPATH   = $(WORKSPACE)build/
+TOOLSPACE = $(HOMESPACE)tools/
 LIBFLAG   = -I $(WORKSPACE)lib/kernel/  -I $(WORKSPACE)lib/  -I $(WORKSPACE)  -I $(WORKSPACE)device\
-			-I $(WORKSPACE)kernel/ 
+			-I $(WORKSPACE)kernel/  -I $(WORKSPACE)thread/
 #编译链接用到的参数
 CFLAG     = -Wall  -m32 $(LIBFLAG)  -fno-builtin -fno-stack-protector \
 			-W -c -o
@@ -18,17 +20,17 @@ AS        = sudo nasm
 
 CC        = sudo gcc -std=gnu99
 LD        = sudo ld
-COPY      = cp
+COPY      = sudo cp
 DEL       = sudo rm
-OBJS = $(BUILD_DIR)/main.o $(BUILD_DIR)/init.o $(BUILD_DIR)/interrupt.o \
-      $(BUILD_DIR)/timer.o $(BUILD_DIR)/kernel.o $(BUILD_DIR)/print.o \
-      $(BUILD_DIR)/debug.o $(BUILD_DIR)/string.o $(BUILD_DIR)/memory.o \
-      $(BUILD_DIR)/bitmap.o 
 OBJS      = $(OUTPATH)main.o $(OUTPATH)init.o $(OUTPATH)interrupt.o  $(OUTPATH)timer.o\
 		  $(OUTPATH)kernel.o $(OUTPATH)print.o $(OUTPATH)debug.o $(OUTPATH)string.o\
-		$(OUTPATH)memory.o $(OUTPATH)bitmap.o
+		$(OUTPATH)memory.o $(OUTPATH)bitmap.o  $(OUTPATH)thread.o $(OUTPATH)list.o $(OUTPATH)switch.o
 default:
-		$(MAKE) img
+		$(MAKE) install
+install:
+	$(MAKE) img
+	sudo cp $(WORKSPACE)NewOS.img $(TOOLSPACE)Bochs/NewOS.img
+	sudo $(TOOLSPACE)objdump.sh ../build/kernel.bin ../diskernel.S
 img:
 		$(MAKE) NewOS.img
 NewOS.img: $(OUTPATH)kernel.bin

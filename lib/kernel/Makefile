@@ -16,7 +16,7 @@ LD        = sudo ld
 COPY      = cp
 DEL       = sudo rm
 
-OBJS      = $(OUTPATH)print.o $(OUTPATH)bitmap.o
+OBJS      = $(OUTPATH)print.o $(OUTPATH)bitmap.o $(OUTPATH)list.o
 default:
 	$(MAKE) $(OBJS)
 

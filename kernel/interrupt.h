@@ -13,6 +13,7 @@ INTR_ON为1，表示开启
 	INTR_ON
  };
 
+ void register_handler(uint8_t vec,intr_handler func);
  enum intr_status intr_get_status();
  enum intr_status intr_set_status(enum intr_status status);
  enum intr_status intr_enable();

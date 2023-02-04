@@ -27,7 +27,8 @@ struct gate_desc {
 //创建中断门描述符
 static void make_idt_desc(struct gate_desc* p_gdesc, uint8_t attr, intr_handler function); 
 			//p_gdesc 指针	 attr属性  function 处理函数地址   将后两项写入到第一项指向的中断门描述符
-static struct gate_desc idt[IDT_DESC_CNT];   // idt是中断描述符表,本质上就是个中断门描述符数组
+static struct gate_desc *idt = (struct gate_desc*)0x000;
+//static struct gate_desc idt[IDT_DESC_CNT];   // idt是中断描述符表,本质上就是个中断门描述符数组
 
 
 char* intr_name[IDT_DESC_CNT];		     // 用于保存异常的名字
@@ -36,6 +37,8 @@ char* intr_name[IDT_DESC_CNT];		     // 用于保存异常的名字
 /********    定义中断处理程序数组    ********
  * 在kernel.S中定义的intrXXentry只是中断处理程序的入口,
  * 最终调用的是ide_table中的处理程序*/
+
+
 intr_handler idt_table[IDT_DESC_CNT];
 
 /********************************************/
@@ -91,13 +94,44 @@ static void general_intr_handler(uint8_t vec_nr)
 	return ;// (irq15)0x2f是从片8259A上的最后一个irq引脚，保留
 	
 	}
-
-	put_str("int Vector:0x");
-	put_int(vec_nr);
-	put_char('\n');
+/*
+*将光标置0 ，从屏幕左上角清出一片打印异常信息的区椒，方便阅读
+*/
+	set_cursor(80) ;
+	int cursor_pos = 0;
+	while (cursor_pos < 320) 
+	{
+		cursor_pos++;
+		put_char (' ');
+	}
+	set_cursor(80) ;
+	//重置光标为屏幕左上角
+	put_str ("! ! ! ! ! ! !\
+	excetion message begin\
+	! ! ! ! ! ! ! ! \n ");
+	set_cursor(168) ;
+	//从第 3 行第 9 个字符开始打印
+	put_str(intr_name[vec_nr]);
+	if (vec_nr == 14) 
+	{
+		//若为 Page fault ，将缺失的地址打印出来并悬停
+		int page_fault_vaddr = 0;
+		asm("movl %%cr2,%0":"=r"(page_fault_vaddr));
+		// cr2 是存放造成 page_fault 的地址
+		put_str ("\npage fault addr is ");
+		put_int (page_fault_vaddr);
+	}
+	put_str ("\n ! ! ! ! ! ! !excetion message end! ! ! ! ! ! ! ! \n");
+	//能进入中断处理程序就表示已经处在关中断情况下
+	//不会出现调度进程的情况。故下面的死循环不会再被中断
+	while(1);
     
 }
-
+/*为向量号为vec的中断注册中断函数*/
+void register_handler(uint8_t vec,intr_handler func)
+{
+	idt_table[vec] = func;
+}
 
 /* 完成一般中断处理函数注册及异常名称注册 */
 static void exception_init(void)
@@ -143,7 +177,7 @@ void init_idt()
 
     /*加载IDT表*/
 	uint64_t idt_operand = 0;
-	idt_operand =( (sizeof (idt) -1) | ( (uint64_t) ( (uint32_t) idt<<16)));
+	idt_operand =( ((sizeof (struct gate_desc) * IDT_DESC_CNT )-1) | ( (uint64_t) ( (uint32_t) idt<<16)));
 	asm volatile("lidt %0"::"m"(idt_operand));
 	put_str("idt_table");
 	put_int(&idt_table);
