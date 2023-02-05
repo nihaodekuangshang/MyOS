@@ -1,6 +1,7 @@
 #ifndef __LIB_STDINT_H
 #define __LIB_STDINT_H
 
+#define NULL 0
 /*布尔值相关定义*/
 #define bool int
 #define false 0

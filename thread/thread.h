@@ -83,4 +83,7 @@ struct task_struct* running_thread(); //获取当前线程PCB指针
 struct task_struct* thread_start(char* name,int prio,thread_func func,void* args);
 void thread_init();
 void schedule();
+void thread_block(enum task_status stat);
+//将pthread从阻塞中解除
+void thread_unblock(struct task_struct *pthread);
 #endif

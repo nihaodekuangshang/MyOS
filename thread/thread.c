@@ -144,3 +144,34 @@ void thread_init()
 		put_str("thread init end\n");
 	}
 }
+//阻塞正在运行的线程，将状态设为stat
+void thread_block(enum task_status stat)
+{
+	ASSERT(((stat == TASK_BLOCKED) || (stat == TASK_WAITING) || (stat == TASK_HANING)));
+	enum intr_status old_status = intr_disable();
+	struct task_struct *cur_thread = running_thread();
+	cur_thread->status = stat;
+	schedule();
+	//等到线程被唤醒后，才能继续执行
+	intr_set_status(old_status);
+}
+//将pthread从阻塞中解除
+void thread_unblock(struct task_struct *pthread)
+{
+	ASSERT(((pthread->status == TASK_BLOCKED) || (pthread->status == TASK_WAITING) || 
+	(pthread->status == TASK_HANING)));
+	enum intr_status old_status = intr_disable();
+	if (pthread->status != TASK_READY)
+	{
+		ASSERT(!elem_find(&thread_ready_list,&pthread->general_tag));
+		if(elem_find(&thread_ready_list,&pthread->general_tag))
+		{
+			PANIC("thread_unblock:the thread is already in ready_list\n");
+		}
+		//将pthread放到就绪队列的最前面，尽快运行
+		list_push(&thread_ready_list,&pthread->general_tag);
+		pthread->status = TASK_READY;
+	}
+	intr_set_status(old_status);
+	
+}
